@@ -331,13 +331,28 @@
 			<array>
 				<dict>
 					<key>begin</key>
-					<string>(^\s*)(?=(context)\s+((")(.*)\4)\s+(do))\b</string>
+					<string>(^\s*)(context)\s+((")(.*)\4)\s+(do)\b</string>
 					<key>beginCaptures</key>
 					<dict>
 						<key>2</key>
 						<dict>
 							<key>name</key>
 							<string>keyword.other.context.ruby.rails.shoulda</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>entity.name.function.ruby.rails.shoulda</string>
+						</dict>
+						<key>5</key>
+						<dict>
+							<key>name</key>
+							<string>meta.context.ruby.rails.shoulda</string>
+						</dict>
+						<key>6</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.start-block.ruby.shoulda</string>
 						</dict>
 					</dict>
 					<key>end</key>
@@ -355,14 +370,8 @@
 						<dict>
 							<key>begin</key>
 							<string>^\s*(should|should_eventually)\b</string>
-							<key>beginCaptures</key>
-							<dict>
-								<key>1</key>
-								<dict>
-									<key>name</key>
-									<string>support.function.should.should.ruby.shoulda</string>
-								</dict>
-							</dict>
+							<key>comment</key>
+							<string>beginCaptures = { 1 = { name = 'support.function.should.ruby.rails.shoulda'; }; };</string>
 							<key>end</key>
 							<string>\b(do)\s*$</string>
 							<key>endCaptures</key>
@@ -373,6 +382,8 @@
 									<string>keyword.control.start-block.ruby.shoulda</string>
 								</dict>
 							</dict>
+							<key>name</key>
+							<string>meta.should.ruby.rails.shoulda</string>
 							<key>patterns</key>
 							<array>
 								<dict>
@@ -384,14 +395,8 @@
 						<dict>
 							<key>begin</key>
 							<string>^\s*(setup)\b</string>
-							<key>beginCaptures</key>
-							<dict>
-								<key>1</key>
-								<dict>
-									<key>name</key>
-									<string>keyword.other.setup.ruby.rails.shoulda</string>
-								</dict>
-							</dict>
+							<key>comment</key>
+							<string>beginCaptures = { 1 = { name = 'support.function.setup.ruby.rails.shoulda'; }; };</string>
 							<key>end</key>
 							<string>\b(do)\s*$</string>
 							<key>endCaptures</key>
