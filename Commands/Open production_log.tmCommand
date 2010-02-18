@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby
+dirs = Dir.getwd.split("/")
+
+loop do
+  path = dirs.join("/") + "/log/production.log"
+  if File.exists?(path)
+    `mate #{path}`
+    exit
+  end
+  dirs.pop
+  break if dirs.empty?
+end
+</string>
+	<key>input</key>
+	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>^~@l</string>
+	<key>name</key>
+	<string>Open production.log</string>
+	<key>output</key>
+	<string>discard</string>
+	<key>scope</key>
+	<string>source.ruby.rails</string>
+	<key>uuid</key>
+	<string>162EA13A-D394-4F26-827E-6DAD7C5B0970</string>
+</dict>
+</plist>
