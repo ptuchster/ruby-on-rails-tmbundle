@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>assert_redirected_to ${2::action =&gt; "${1:index}"}</string>
+	<string>assert_redirected_to(${3::controller =&gt; :${1:controller}, :action =&gt; :${2:action}})$0</string>
 	<key>name</key>
 	<string>assert_redirected_to</string>
 	<key>scope</key>

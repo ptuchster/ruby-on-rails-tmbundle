@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>assert_redirected_to ${2:${12:model}_path(${13:@}${14:${12}})}</string>
+	<string>assert_redirected_to(${2:${12:model}_path(${13:@}${14:${12}})})$0</string>
 	<key>name</key>
 	<string>assert_redirected_to (path)</string>
 	<key>scope</key>
