@@ -11,7 +11,7 @@ dirs = Dir.getwd.split("/")
 loop do
   path = dirs.join("/") + "/log/development.log"
   if File.exists?(path)
-    `mate #{path}`
+    `/Applications/TextMate.app/Contents/Resources/mate #{path}`
     exit
   end
   dirs.pop
