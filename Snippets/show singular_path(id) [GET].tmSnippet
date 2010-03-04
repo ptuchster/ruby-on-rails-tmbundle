@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>${1:singular}_path(${2:id}${3:, :format =&gt; ${4::xml}})$0</string>
+	<key>name</key>
+	<string>show - singular_path(id)  [GET]</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>rest</string>
+	<key>uuid</key>
+	<string>B5FD993C-8419-4AAE-98AC-92408BFA5E81</string>
+</dict>
+</plist>
