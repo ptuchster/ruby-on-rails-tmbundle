@@ -6,9 +6,14 @@
 	<string>nop</string>
 	<key>command</key>
 	<string>#!/usr/bin/env ruby
-dirs = Dir.getwd.split("/")
 
-loop do
+path = "#{ENV['TM_PROJECT_DIRECTORY']}/log/test.log"
+if File.exists?(path)
+  `/Applications/TextMate.app/Contents/Resources/mate #{path}`
+  exit
+else
+  dirs = Dir.getwd.split("/")
+  loop do
   path = dirs.join("/") + "/log/test.log"
   if File.exists?(path)
     `/Applications/TextMate.app/Contents/Resources/mate #{path}`
@@ -16,8 +21,7 @@ loop do
   end
   dirs.pop
   break if dirs.empty?
-end
-</string>
+end</string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>
