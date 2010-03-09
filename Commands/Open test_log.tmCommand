@@ -14,13 +14,14 @@ if File.exists?(path)
 else
   dirs = Dir.getwd.split("/")
   loop do
-  path = dirs.join("/") + "/log/test.log"
-  if File.exists?(path)
-    `/Applications/TextMate.app/Contents/Resources/mate #{path}`
-    exit
+    path = dirs.join("/") + "/log/test.log"
+    if File.exists?(path)
+      `/Applications/TextMate.app/Contents/Resources/mate #{path}`
+      exit
+    end
+    dirs.pop
+    break if dirs.empty?
   end
-  dirs.pop
-  break if dirs.empty?
 end</string>
 	<key>input</key>
 	<string>none</string>
