@@ -26,7 +26,7 @@ end</string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>
-	<string>^~L</string>
+	<string>~L</string>
 	<key>name</key>
 	<string>Open test.log</string>
 	<key>output</key>
