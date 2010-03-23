@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby
+path = "#{ENV['TM_PROJECT_DIRECTORY']}/log/development.log"
+`tail -n 2500 #{path} | pbcopy`
+puts `pbpaste`</string>
+	<key>input</key>
+	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>~L</string>
+	<key>name</key>
+	<string>Tail develoment.log</string>
+	<key>output</key>
+	<string>openAsNewDocument</string>
+	<key>scope</key>
+	<string>source.ruby.rails</string>
+	<key>uuid</key>
+	<string>EC3F7320-DD02-4478-876B-C808893CBC3C</string>
+</dict>
+</plist>
