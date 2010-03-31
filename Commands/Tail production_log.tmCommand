@@ -10,13 +10,13 @@ path = "#{ENV['TM_PROJECT_DIRECTORY']}/log/production.log"
 `tail -n 2500 #{path} | pbcopy`
 puts `pbpaste`</string>
 	<key>input</key>
-	<string>selection</string>
+	<string>none</string>
 	<key>keyEquivalent</key>
 	<string>~L</string>
 	<key>name</key>
 	<string>Tail production.log</string>
 	<key>output</key>
-	<string>replaceSelectedText</string>
+	<string>openAsNewDocument</string>
 	<key>scope</key>
 	<string>source.ruby.rails</string>
 	<key>uuid</key>
