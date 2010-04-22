@@ -5,19 +5,18 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>#!/usr/bin/env ruby
-require File.join(ENV['TM_BUNDLE_SUPPORT'], 'bin', 'list_methods.rb')
-TextMate::ListMethods.new.run!</string>
+	<string>RUBYLIB="$TM_BUNDLE_SUPPORT/lib:$RUBYLIB"
+"${TM_RUBY:=ruby}" -- "${TM_BUNDLE_SUPPORT}/bin/list_columns.rb"</string>
 	<key>fallbackInput</key>
 	<string>word</string>
 	<key>input</key>
 	<string>selection</string>
 	<key>keyEquivalent</key>
-	<string>~@ </string>
+	<string>^ </string>
 	<key>name</key>
-	<string>List methods of a model</string>
+	<string>List columns of a model</string>
 	<key>output</key>
-	<string>showAsTooltip</string>
+	<string>afterSelectedText</string>
 	<key>scope</key>
 	<string>source.ruby.rails</string>
 	<key>uuid</key>
