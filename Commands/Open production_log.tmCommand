@@ -32,7 +32,7 @@ end</string>
 	<key>output</key>
 	<string>discard</string>
 	<key>scope</key>
-	<string>source.ruby.rails</string>
+	<string>source.ruby.rails, text.haml</string>
 	<key>uuid</key>
 	<string>162EA13A-D394-4F26-827E-6DAD7C5B0970</string>
 </dict>
