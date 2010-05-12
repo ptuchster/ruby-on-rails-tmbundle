@@ -323,6 +323,41 @@
 			<string>support.function.activesupport.rails</string>
 		</dict>
 		<dict>
+			<key>begin</key>
+			<string>(Factory).define</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>support.class.ruby</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>\b(do)\b</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.start-block.ruby.shoulda</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>meta.rails.factory.header</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>source.ruby</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
 			<key>include</key>
 			<string>source.ruby</string>
 		</dict>
