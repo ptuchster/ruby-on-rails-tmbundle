@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>hash_indexed_by_readable_constants(:${1:mapping_name}, [[:${2:constant_name}, ${3:index}, "${4:value}"]$5])$0</string>
+	<key>name</key>
+	<string>hash_indexed_by_readable_constants</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>hibrc</string>
+	<key>uuid</key>
+	<string>8FFF2991-69B4-4660-85FA-2231CB63B781</string>
+</dict>
+</plist>

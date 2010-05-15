@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>writable_constant(:${1:name}, ${2:value})$0</string>
+	<key>name</key>
+	<string>writable_constant</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>wc</string>
+	<key>uuid</key>
+	<string>F35C2551-18F6-4FF0-AB8E-4A76AD83EC75</string>
+</dict>
+</plist>
