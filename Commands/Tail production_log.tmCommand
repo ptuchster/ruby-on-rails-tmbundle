@@ -6,9 +6,11 @@
 	<string>nop</string>
 	<key>command</key>
 	<string>#!/usr/bin/env ruby
+require 'digest/sha1'
+filename = "/tmp/tm_log_" + Digest::SHA1.hexdigest(Time.now.to_s + rand(999999).to_s(26))[0...10].to_s + ".txt"
 path = "#{ENV['TM_PROJECT_DIRECTORY']}/log/production.log"
-`tail -n 2500 #{path} | pbcopy`
-puts `pbpaste`</string>
+`tail -n 2500 #{path} &gt; #{filename}`
+`/Applications/TextMate.app/Contents/Resources/mate #{filename}`</string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>
