@@ -9,9 +9,11 @@
 
 path = "#{ENV['TM_PROJECT_DIRECTORY']}/log/production.log"
 if File.exists?(path)
+  `echo '' &gt; #{path}`
   `/Applications/TextMate.app/Contents/Resources/mate #{path}`
   exit
 else
+  `echo '' &gt; #{path}`
   dirs = Dir.getwd.split("/")
   loop do
     path = dirs.join("/") + "/log/production.log"
@@ -28,7 +30,7 @@ end</string>
 	<key>keyEquivalent</key>
 	<string>~L</string>
 	<key>name</key>
-	<string>Open production.log</string>
+	<string>Clear and open production.log</string>
 	<key>output</key>
 	<string>discard</string>
 	<key>scope</key>
