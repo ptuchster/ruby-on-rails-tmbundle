@@ -13,10 +13,10 @@ if File.exists?(path)
   `/Applications/TextMate.app/Contents/Resources/mate #{path}`
   exit
 else
-  `echo '' &gt; #{path}`
   dirs = Dir.getwd.split("/")
   loop do
     path = dirs.join("/") + "/log/test.log"
+    `echo '' &gt; #{path}`
     if File.exists?(path)
       `/Applications/TextMate.app/Contents/Resources/mate #{path}`
       exit
