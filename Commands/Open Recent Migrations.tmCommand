@@ -9,7 +9,7 @@
 require 'time'
 
 def list_latest_migrations_from_path(path)
-  migrations = Dir.entries(path)[-5..-1] if File.directory?(path)
+  migrations = Dir.entries(path)[-10..-1] if File.directory?(path)
   migrations = [] if !defined?(migrations) or migrations.nil?
   migrations = migrations.reverse
 
@@ -20,7 +20,7 @@ def list_latest_migrations_from_path(path)
     a { text-decoration: none; }
     small { color: #666; margin-top: 2px } 
   &lt;/style&gt;
-  &lt;h1&gt;Last 5 Migrations&lt;/h1&gt;
+  &lt;h1&gt;Last 10 Migrations&lt;/h1&gt;
   EOT
   
   if migrations.empty?
