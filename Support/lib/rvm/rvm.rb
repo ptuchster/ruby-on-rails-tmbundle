@@ -6,9 +6,9 @@ require File.join(TextMate.support_path, "lib", "osx", "plist")
 
 module TextMate
   class RVM
-    CURRENT_RVM_VERSION = "1.0.11"
-    BUTTON_OK = '1'
-    BUTTON_NEW_GEMSET = '3'
+    CURRENT_RVM_VERSION = "0.1.33"
+    OK = '1'
+    NEW_GEMSET = '3'
     
     def choose!(message = nil)
       TextMate.exit_show_tool_tip("RVM is outdated. Update with 'rvm update'.") if outdated?
@@ -16,9 +16,9 @@ module TextMate
       button, selected = TextMate.standard_choose(message || formatted_message, gemsets, :title => "RVM Environment", :button3 => "Set a new gemset...")
 
       case button
-      when BUTTON_OK
+      when OK
         create_rvmrc(gemsets[selected.to_i])
-      when BUTTON_NEW_GEMSET
+      when NEW_GEMSET
         parameters = { 
           "rubies"       => rubies, 
           "selectedRuby" => gemsets[selected.to_i].split('@').first, 
@@ -42,7 +42,7 @@ module TextMate
     def version
       @version ||= if installed?
         rvm_version = File.open("#{TextMate.project_directory}/.rvmrc").read
-        rvm_version[/rvm --create \s+(.*)/, 1].gsub('"', '')
+        rvm_version.sub('rvm use', '').strip
       end
       
       return @version
@@ -61,20 +61,20 @@ module TextMate
     end
     
     def rubies
-      @rubies ||= `rvm list strings`.split.reject { |e| e == 'default' }
+      @rubies ||= `rvm list strings`.split
     end
     
     def gemsets
       @gemsets ||= rubies.collect do |ruby|
         gemsets = `rvm #{ruby} gemset list`.split("\n")
-        gemsets.reject! { |e| e.empty? || e == 'global' || e =~ /^gemsets for/ }
+        gemsets.reject! { |e| e.empty? || e =~ /^<i>/ }
 
         [ruby, gemsets.map { |g| "#{ruby}@#{g}" }]
       end.flatten
     end
     
     def create_rvmrc(gemset)
-      `(cd #{TextMate.project_directory}; rvm --create --rvmrc #{gemset}) > /dev/null`
+      `(cd #{TextMate.project_directory}; rvm --create --rvmrc use #{gemset}) > /dev/null`
     end
     
   end
