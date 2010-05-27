@@ -370,7 +370,7 @@
 			<array>
 				<dict>
 					<key>begin</key>
-					<string>(^\s*)(context)\s+((")(.*)\4)\s+(do)\b</string>
+					<string>(^\s*)(context)\s+(("|')(.*)\4)\s+(do)\b</string>
 					<key>beginCaptures</key>
 					<dict>
 						<key>2</key>
