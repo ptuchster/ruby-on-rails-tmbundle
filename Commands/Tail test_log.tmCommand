@@ -19,8 +19,6 @@ path = "#{ENV['TM_PROJECT_DIRECTORY']}/log/test.log"
 	<string>Tail test.log</string>
 	<key>output</key>
 	<string>openAsNewDocument</string>
-	<key>scope</key>
-	<string>source.ruby.rails, text.haml</string>
 	<key>uuid</key>
 	<string>1DBD41D3-431F-43A7-9953-B0DE0F13C08F</string>
 </dict>
