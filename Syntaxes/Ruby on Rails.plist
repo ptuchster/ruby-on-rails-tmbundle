@@ -455,6 +455,31 @@
 							</array>
 						</dict>
 						<dict>
+							<key>begin</key>
+							<string>^\s*(x_shared_should|shared_should)\b</string>
+							<key>comment</key>
+							<string>beginCaptures = { 1 = { name = 'support.function.should.ruby.rails.shoulda'; }; };</string>
+							<key>end</key>
+							<string>\b(do)\s*$</string>
+							<key>endCaptures</key>
+							<dict>
+								<key>1</key>
+								<dict>
+									<key>name</key>
+									<string>keyword.control.start-block.ruby.shoulda</string>
+								</dict>
+							</dict>
+							<key>name</key>
+							<string>support.function.ruby.rails.shoulda</string>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>include</key>
+									<string>source.ruby</string>
+								</dict>
+							</array>
+						</dict>
+						<dict>
 							<key>include</key>
 							<string>#shoulda</string>
 						</dict>
