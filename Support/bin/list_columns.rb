@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby -W0
 
 require "yaml"
-require "rails_bundle_tools"
-require "progress"
-require "current_word"
+require File.join(File.dirname(__FILE__), '..', 'lib', "rails_bundle_tools")
+require File.join(ENV['TM_SUPPORT_PATH'], 'lib', 'progress')
+require File.join(ENV['TM_SUPPORT_PATH'], 'lib', 'current_word')
 
 module TextMate
   class ListColumns
@@ -72,7 +72,7 @@ module TextMate
       if options[selected] == RELOAD_MESSAGE
         cache_attributes and run!
       else
-        TextMate.exit_insert_text(options[selected])
+        TextMate.exit_insert_text(".#{options[selected]}")
       end
     end
    
