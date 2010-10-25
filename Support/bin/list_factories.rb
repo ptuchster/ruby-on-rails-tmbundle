@@ -8,16 +8,42 @@ module TextMate
     def run!
       search_term = TextMate::UI.request_string(:title => "Find Factory", :prompt => "Factory Name")
       all_names = collect_factory_names
-      matches = all_names.select { |name| name =~ /.*#{search_term.gsub(/\W/, '.*')}.*/ }
-      matches += all_names.select { |name| name =~ /.*#{search_term.gsub(/\W/, '').split(//).join('.*')}.*/}
-      matches.uniq!
       
+      matches = all_names.select { |name| name =~ /.*#{search_term.gsub(/\W/, '.*')}.*/ }
+      sort_matches!(matches, search_term)
+      
+      secondary_matches = all_names.select { |name| name =~ /.*#{search_term.gsub(/\W/, '').split(//).join('.*')}.*/}
+      sort_matches!(secondary_matches, search_term)
+      
+      matches = matches + secondary_matches
+      matches.uniq!
+            
       if matches.empty?
         TextMate.exit_show_tool_tip "No factories found matching '#{search_term}'"
+        print ''
       else
         selected = TextMate::UI.menu(matches)
-        return if selected.nil?
-        puts "Factory(:#{matches[selected]}$1)$0"
+        if selected.nil?
+          print ''
+        else
+          print "Factory(:#{matches[selected]}$1)$0"
+        end
+      end
+    end
+    
+    def sort_matches!(matches, search_term)
+      matches.sort! do |a, b|
+        if a[0,1] == search_term[0,1]
+          if b[0,1] == search_term[0,1]
+            a <=> b
+          else
+            -1
+          end
+        elsif b[0,1] == search_term[0,1]
+          1
+        else
+          a <=> b
+        end
       end
     end
     
