@@ -57,7 +57,7 @@ module TextMate
     end
     
     def each_factory_line
-      factory_files = Dir.glob(File.join(RailsPath.new.rails_root.to_s, "test", "factories", "*_factory.rb"))
+      factory_files = Dir.glob(File.join(RailsPath.new.rails_root.to_s, "test", "factories", "**/**/*_factory.rb"))
       seen_files = {}
       factory_files.each do |file|
         filename = File.basename(file)
