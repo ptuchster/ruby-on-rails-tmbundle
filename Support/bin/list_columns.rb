@@ -2,6 +2,7 @@
 
 require "yaml"
 require File.join(File.dirname(__FILE__), '..', 'lib', "rails_bundle_tools")
+require File.join(File.dirname(__FILE__), '..', 'lib', "search_utilities")
 require File.join(ENV['TM_SUPPORT_PATH'], 'lib', 'progress')
 require File.join(ENV['TM_SUPPORT_PATH'], 'lib', 'current_word')
 
@@ -65,6 +66,9 @@ module TextMate
 
       options = associations.empty? ? [] : associations + [nil]
       options += columns + [nil, RELOAD_MESSAGE]
+      
+      search_term = TextMate::UI.request_string(:title => "Find attribute", :prompt => "Attribute name")      
+      options = array_sorted_search(options, search_term) if search_term
       
       selected = TextMate::UI.menu(options)
       return if selected.nil?

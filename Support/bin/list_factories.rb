@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby -W0
 
+require File.join(File.dirname(__FILE__), '..', 'lib', 'search_utilities')
 require File.join(File.dirname(__FILE__), '..', 'lib', 'rails_bundle_tools')
-
 
 module TextMate
   class ListFactories
@@ -9,14 +9,7 @@ module TextMate
       search_term = TextMate::UI.request_string(:title => "Find Factory", :prompt => "Factory Name")
       all_names = collect_factory_names
       
-      matches = all_names.select { |name| name =~ /.*#{search_term.gsub(/\W/, '.*')}.*/ }
-      sort_matches!(matches, search_term)
-      
-      secondary_matches = all_names.select { |name| name =~ /.*#{search_term.gsub(/\W/, '').split(//).join('.*')}.*/}
-      sort_matches!(secondary_matches, search_term)
-      
-      matches = matches + secondary_matches
-      matches.uniq!
+      matches = array_sorted_search(all_names, search_term)
             
       if matches.empty?
         TextMate.exit_show_tool_tip "No factories found matching '#{search_term}'"
@@ -31,22 +24,7 @@ module TextMate
       end
     end
     
-    def sort_matches!(matches, search_term)
-      matches.sort! do |a, b|
-        if a[0,1] == search_term[0,1]
-          if b[0,1] == search_term[0,1]
-            a <=> b
-          else
-            -1
-          end
-        elsif b[0,1] == search_term[0,1]
-          1
-        else
-          a <=> b
-        end
-      end
-    end
-    
+
     def collect_factory_names
       names = []
       self.each_factory_line do |line|
