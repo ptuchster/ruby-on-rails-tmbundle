@@ -4,7 +4,6 @@ require "yaml"
 require File.join(File.dirname(__FILE__), '..', 'lib', "rails_bundle_tools")
 require File.join(File.dirname(__FILE__), '..', 'lib', "search_utilities")
 require File.join(ENV['TM_SUPPORT_PATH'], 'lib', 'progress')
-require File.join(ENV['TM_SUPPORT_PATH'], 'lib', 'current_word')
 
 module TextMate
   class ListColumns
@@ -13,7 +12,7 @@ module TextMate
     RELOAD_MESSAGE = "Reload database schema..."
     RAILS_REGEX    = /^Rails (\d\.?){3}(\w+)?$/
     
-    def run!
+    def run!(current_word)
       TextMate.exit_show_tool_tip("Place cursor on class name (or variation) to show its schema") if current_word.nil? || current_word.empty?
       # TextMate.exit_show_tool_tip("You don't have Rails installed in this gemset.") unless rails_present?
 
@@ -126,5 +125,3 @@ module TextMate
     
   end
 end
-
-TextMate::ListColumns.new.run!
