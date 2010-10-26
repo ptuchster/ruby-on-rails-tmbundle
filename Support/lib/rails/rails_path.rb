@@ -5,10 +5,10 @@
 # Description:
 #   Makes analyzing of a Rails path + filename easier.
 
-require 'rails/misc'
-require 'rails/text_mate'
-require 'rails/buffer'
-require 'rails/inflector'
+require File.join(File.dirname(__FILE__), %w[misc])
+require File.join(File.dirname(__FILE__), %w[text_mate])
+require File.join(File.dirname(__FILE__), %w[buffer])
+require File.join(File.dirname(__FILE__), %w[inflector])
 require 'fileutils'
 
 module AssociationMessages
