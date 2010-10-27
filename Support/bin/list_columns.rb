@@ -4,6 +4,7 @@ require "yaml"
 require File.join(File.dirname(__FILE__), '..', 'lib', "rails_bundle_tools")
 require File.join(File.dirname(__FILE__), '..', 'lib', "search_utilities")
 require File.join(ENV['TM_SUPPORT_PATH'], 'lib', 'progress')
+require File.join(ENV['TM_SUPPORT_PATH'], 'lib', 'current_word')
 
 module TextMate
   class ListColumns
@@ -130,7 +131,8 @@ module TextMate
         out = options[selected]
       end
 
-      TextMate.exit_insert_text(".#{out}")
+      out = ".#{out}" unless input_text =~ /\.$/
+      TextMate.exit_insert_text(out)
     end
    
     def cache
@@ -139,13 +141,11 @@ module TextMate
     end
     
     def current_word
-      @current_word ||= (
-        if defined?(Word)
-          Word.current_word('_a-zA-Z0-9.', :left).split('.').last
-        else
-          ''
-        end
-      )
+      @current_word ||= input_text.split('.').select { |e| e != '' }.last
+    end
+    
+    def input_text
+      Word.current_word('_a-zA-Z0-9.', :left)
     end
     
     def rails_present?

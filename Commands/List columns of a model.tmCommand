@@ -7,7 +7,7 @@
 	<key>command</key>
 	<string>#!/usr/bin/env ruby
 require File.join(ENV['TM_BUNDLE_SUPPORT'], 'bin', 'list_columns.rb')
-TextMate::ListColumns.new.run!(STDIN.readlines.first)</string>
+TextMate::ListColumns.new.run!</string>
 	<key>fallbackInput</key>
 	<string>word</string>
 	<key>input</key>
