@@ -2,10 +2,10 @@ require File.join(File.dirname(__FILE__), 'rails_bundle_tools')
 
 def array_sorted_search(array, search_term, &block)
   block = lambda { |e| e } if block.nil?
-  matches = array.select { |name| block.call(name) =~ /.*#{search_term.gsub(/\W/, '.*')}.*/ }
+  matches = array.select { |name| block.call(name) =~ /.*#{search_term.gsub(/\W/, '.*')}.*/i }
   sort_matches!(matches, search_term)
 
-  secondary_matches = array.select { |name| block.call(name) =~ /.*#{search_term.gsub(/\W/, '').split(//).join('.*')}.*/}
+  secondary_matches = array.select { |name| block.call(name) =~ /.*#{search_term.gsub(/\W/, '').split(//).join('.*')}.*/i}
   sort_matches!(secondary_matches, search_term)
 
   matches = matches + secondary_matches
