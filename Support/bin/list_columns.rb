@@ -84,7 +84,7 @@ module TextMate
           end
           
           if klass and klass.class.is_a?(Class) and klass.ancestors.include?(ActiveRecord::Base)
-            _cache[klass.name.underscore] = { :associations => klass.reflections.stringify_keys.keys, :columns => klass.column_names }
+            _cache[klass.name.underscore] = { :associations => klass.reflections.stringify_keys.keys, :columns => klass.column_names, :constants => klass.class_variables - ActiveRecord::Base.class_variables }
           end
         end
 
@@ -105,21 +105,32 @@ module TextMate
     def display_menu(klass)
       columns      = cache[klass][:columns]
       associations = cache[klass][:associations]
+      constants    = cache[klass][:constants]
 
       options = associations.empty? ? [] : associations + [nil]
+      options += constants.map { |constant| constant.gsub('@@', '') } + [nil]
       options += columns + [nil, RELOAD_MESSAGE]
       
       search_term = TextMate::UI.request_string(:title => "Find attribute", :prompt => "Attribute name")      
-      options = array_sorted_search(options, search_term) if search_term
+      options = array_sorted_search(options, search_term) unless search_term.nil? or search_term == ''
       
-      selected = TextMate::UI.menu(options)
-      return if selected.nil?
-
-      if options[selected] == RELOAD_MESSAGE
-        cache_attributes and run!
+      valid_options = options.select { |e| !e.nil? and e != RELOAD_MESSAGE }
+      if(valid_options.size == 1)
+        out = valid_options.first
+      elsif valid_options.size == 0
+        TextMate.exit_show_tool_tip("No matching results")
       else
-        TextMate.exit_insert_text(".#{options[selected]}")
+        selected = TextMate::UI.menu(options)
+        return if selected.nil?
+
+        if options[selected] == RELOAD_MESSAGE
+          cache_attributes and run!
+        end
+        
+        out = options[selected]
       end
+
+      TextMate.exit_insert_text(".#{out}")
     end
    
     def cache
