@@ -14,6 +14,8 @@ module TextMate
       if matches.empty?
         TextMate.exit_show_tool_tip "No factories found matching '#{search_term}'"
         print ''
+      elsif matches.size == 1
+        print "Factory(:#{matches.first}$1)$0"
       else
         selected = TextMate::UI.menu(matches)
         if selected.nil?
