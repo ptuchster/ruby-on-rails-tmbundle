@@ -23,6 +23,8 @@ module TextMate
         display_menu(klass)
       elsif cache[klass_without_undescore = klass.split('_').last]
         display_menu(klass_without_undescore)
+      elsif initials_match = cache.keys.detect { |word| first_letter_of_each_word(word) == current_word }
+        display_menu(initials_match)
       else
         options = [
           @error || "'#{Inflector.camelize(klass)}' is not an Active Record derived class or was not recognised as a class.", 
@@ -73,6 +75,10 @@ module TextMate
     
    protected
    
+   def first_letter_of_each_word(string)
+     string.split('_').map { |word| word[0,1] }.join("")
+   end
+   
     def update_cache(_cache)
       begin
         require "#{TextMate.project_directory}/config/environment"
@@ -110,10 +116,12 @@ module TextMate
 
       options = associations.empty? ? [] : associations + [nil]
       options += constants.map { |constant| constant.gsub('@@', '') } + [nil]
-      options += columns + [nil, RELOAD_MESSAGE]
       
       search_term = TextMate::UI.request_string(:title => "Find attribute", :prompt => "Attribute name")      
       options = array_sorted_search(options, search_term) unless search_term.nil? or search_term == ''
+      
+      options += columns + [nil, RELOAD_MESSAGE] + [nil, "(Listing attributes for #{Inflector.classify(klass)})"]
+      
       
       valid_options = options.select { |e| !e.nil? and e != RELOAD_MESSAGE }
       if(valid_options.size == 1)
@@ -121,6 +129,7 @@ module TextMate
       elsif valid_options.size == 0
         TextMate.exit_show_tool_tip("No matching results")
       else
+        
         selected = TextMate::UI.menu(options)
         return if selected.nil?
 
