@@ -91,7 +91,7 @@ module TextMate
           end
           
           if klass and klass.class.is_a?(Class) and klass.ancestors.include?(ActiveRecord::Base)
-            _cache[klass.name.underscore] = { :associations => klass.reflections.stringify_keys.keys, :columns => klass.column_names, :constants => klass.class_variables - ActiveRecord::Base.class_variables }
+            _cache[klass.name.underscore] = { :associations => associations_for_class(klass), :columns => klass.column_names, :constants => class_variables_for_class(klass), :methods => methods_for_class(klass) }
           end
         end
 
@@ -100,6 +100,24 @@ module TextMate
       rescue Exception => e
         @error_message = "Fix it: #{e.message}"
       end
+    end
+    
+    def methods_for_class(klass)
+      out = klass.instance_methods 
+      out -= Object.methods 
+      out -= ActiveRecord::Base.instance_methods 
+      out -= klass.column_names.map { |e| ["#{e}=", e, "#{e}?"]}.flatten 
+      out -= associations_for_class(klass).map { |e| ["create_#{e}", "build_#{e}", "validate_associated_records_for_#{e}", "#{e}=", "autosave_associated_records_for_#{e}", e, "#{Inflector.singularize(e)}_ids", "#{Inflector.singularize(e)}_ids="] }.flatten 
+      out -= class_variables_for_class(klass).map { |e| e.gsub('@@', '') }
+      return out
+    end
+    
+    def associations_for_class(klass)
+      return klass.reflections.stringify_keys.keys
+    end
+    
+    def class_variables_for_class(klass)
+      return klass.class_variables - ActiveRecord::Base.class_variables
     end
    
     def clone_cache(klass, new_word)
@@ -113,14 +131,17 @@ module TextMate
       columns      = cache[klass][:columns]
       associations = cache[klass][:associations]
       constants    = cache[klass][:constants]
+      methods      = cache[klass][:methods]
 
-      options = associations.empty? ? [] : associations + [nil]
+      options = columns + [nil]
+      options += associations.empty? ? [] : associations + [nil]
       options += constants.map { |constant| constant.gsub('@@', '') } + [nil]
+      options += methods + [nil]
       
       search_term = TextMate::UI.request_string(:title => "Find attribute", :prompt => "Attribute name")      
       options = array_sorted_search(options, search_term) unless search_term.nil? or search_term == ''
       
-      options += columns + [nil, RELOAD_MESSAGE] + [nil, "(Listing attributes for #{Inflector.classify(klass)})"]
+      options += [nil, RELOAD_MESSAGE] + [nil, "(Listing attributes for #{Inflector.classify(klass)})"]
       
       
       valid_options = options.select { |e| !e.nil? and e != RELOAD_MESSAGE }

@@ -6,7 +6,7 @@
 	<string>nop</string>
 	<key>command</key>
 	<string>#!/usr/bin/env ruby
-require File.join(ENV['TM_BUNDLE_SUPPORT'], 'bin', 'list_columns.rb')
+require File.join(ENV['TM_BUNDLE_SUPPORT'], 'bin', 'list_methods.rb')
 TextMate::ListColumns.new.run!</string>
 	<key>fallbackInput</key>
 	<string>word</string>
@@ -15,7 +15,7 @@ TextMate::ListColumns.new.run!</string>
 	<key>keyEquivalent</key>
 	<string>~ </string>
 	<key>name</key>
-	<string>List columns of a model</string>
+	<string>List methods of a model</string>
 	<key>output</key>
 	<string>showAsTooltip</string>
 	<key>scope</key>
