@@ -9,7 +9,7 @@ require File.join(ENV['TM_SUPPORT_PATH'], 'lib', 'current_word')
 module TextMate
   class ListColumns
     CACHE_DIR      = File.join(TextMate.project_directory, "tmp", "textmate")
-    CACHE_FILE     = File.join(CACHE_DIR, "attribute_cache.yml")
+    CACHE_FILE     = File.join(CACHE_DIR, "methods_cache.yml")
     RELOAD_MESSAGE = "Reload database schema..."
     RAILS_REGEX    = /^Rails (\d\.?){3}(\w+)?$/
     
