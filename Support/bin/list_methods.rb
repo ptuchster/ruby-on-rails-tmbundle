@@ -7,7 +7,7 @@ require File.join(ENV['TM_SUPPORT_PATH'], 'lib', 'progress')
 require File.join(ENV['TM_SUPPORT_PATH'], 'lib', 'current_word')
 
 module TextMate
-  class ListColumns
+  class ListMethods
     CACHE_DIR      = File.join(TextMate.project_directory, "tmp", "textmate")
     CACHE_FILE     = File.join(CACHE_DIR, "methods_cache.yml")
     RELOAD_MESSAGE = "Reload database schema..."
@@ -27,7 +27,7 @@ module TextMate
         display_menu(initials_match)
       else
         options = [
-          @error || "'#{Inflector.camelize(klass)}' is not an Active Record derived class or was not recognised as a class.", 
+          @error || "'#{Inflector.camelize(klass)}' is not an Active Record derived class or was not recognized as a class.", 
           nil,
           cache.keys.map { |model_name| "Use #{Inflector.camelize(model_name)}..." }.sort,
           nil,
@@ -141,10 +141,11 @@ module TextMate
       search_term = TextMate::UI.request_string(:title => "Find attribute", :prompt => "Attribute name")      
       options = array_sorted_search(options, search_term) unless search_term.nil? or search_term == ''
       
-      options += [nil, RELOAD_MESSAGE] + [nil, "(Listing attributes for #{Inflector.classify(klass)})"]
+      matching_class_message = "(Listing attributes for #{Inflector.classify(klass)})"
+      options += [nil, RELOAD_MESSAGE] + [nil, matching_class_message]
       
       
-      valid_options = options.select { |e| !e.nil? and e != RELOAD_MESSAGE }
+      valid_options = options.select { |e| !e.nil? and e != RELOAD_MESSAGE and e != matching_class_message }
       if(valid_options.size == 1)
         out = valid_options.first
       elsif valid_options.size == 0
@@ -187,4 +188,4 @@ module TextMate
 end
 
 
-TextMate::ListColumns.new.cache_attributes_in_background  if ENV['TM_CACHE_IN_BACKGROUND']
+TextMate::ListMethods.new.cache_attributes_in_background  if ENV['TM_CACHE_IN_BACKGROUND']
