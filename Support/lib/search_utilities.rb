@@ -2,6 +2,7 @@ require File.join(File.dirname(__FILE__), 'rails_bundle_tools')
 
 def array_sorted_search(array, search_term, &block)
   block = lambda { |e| e } if block.nil?
+  search_term = search_term.to_s
   matches = array.select { |name| block.call(name) =~ /.*#{search_term.gsub(/[^a-zA-Z0-9]/, '.*')}.*/i }
   sort_matches!(matches, search_term)
 
