@@ -17,7 +17,11 @@ module TextMate
       TextMate.exit_show_tool_tip("Place cursor on class name (or variation) to show its schema") if current_word.nil? || current_word.empty?
       # TextMate.exit_show_tool_tip("You don't have Rails installed in this gemset.") unless rails_present?
 
-      klass = Inflector.singularize(Inflector.underscore(current_word))
+      if current_word == current_word.downcase
+        klass = Inflector.singularize(Inflector.underscore(current_word))
+      else
+        klass = Inflector.classify(current_word)
+      end
 
       if cache[klass]
         display_menu(klass)
@@ -27,9 +31,9 @@ module TextMate
         display_menu(initials_match)
       else
         options = [
-          @error || "'#{Inflector.camelize(klass)}' is not an Active Record derived class or was not recognized as a class.", 
+          @error || "'#{Inflector.camelize(klass)}' is not an Active Record derived class or was not recognized as a class.  Pick one below instead:", 
           nil,
-          cache.keys.map { |model_name| "Use #{Inflector.camelize(model_name)}..." }.sort,
+          cache.keys.sort,
           nil,
           RELOAD_MESSAGE
         ].flatten
@@ -48,8 +52,8 @@ module TextMate
         when RELOAD_MESSAGE
           cache_attributes and run!
         else
-          klass = Inflector.singularize(Inflector.underscore(options[selected].split[1].delete('...')))
-          clone_cache(klass, current_word) and display_menu(current_word)
+          klass = options[selected]
+          clone_cache(klass, current_word) and display_menu(klass)
         end
       end
     end
@@ -91,7 +95,8 @@ module TextMate
           end
           
           if klass and klass.class.is_a?(Class) and klass.ancestors.include?(ActiveRecord::Base)
-            _cache[klass.name.underscore] = { :associations => associations_for_class(klass), :columns => klass.column_names, :constants => class_variables_for_class(klass), :methods => methods_for_class(klass) }
+            _cache[klass.name] = { :constants => class_variables_for_class(klass), :methods => class_methods_for_class(klass) }
+            _cache[klass.name.underscore] = { :associations => associations_for_class(klass), :columns => klass.column_names, :methods => methods_for_class(klass) }
           end
         end
 
@@ -100,6 +105,19 @@ module TextMate
       rescue Exception => e
         @error_message = "Fix it: #{e.message}"
       end
+    end
+    
+    def class_methods_for_class(klass)
+      out = klass.methods
+      out -= klass.instance_methods
+      out -= Object.methods
+      out -= ActiveRecord::Base.methods
+      klass.included_modules.each do |m|
+        out -= m.methods
+        out -= m::InstanceMethods.instance_methods if defined?(m::InstanceMethods)
+        out -= m::ClassMethods.instance_methods if defined?(m::ClassMethods)
+      end
+      return out
     end
     
     def methods_for_class(klass)
@@ -133,16 +151,17 @@ module TextMate
       constants    = cache[klass][:constants]
       methods      = cache[klass][:methods]
 
-      options = columns + [nil]
-      options += associations.empty? ? [] : associations + [nil]
-      options += constants.map { |constant| constant.gsub('@@', '') } + [nil]
-      options += methods + [nil]
+      options = []
+      options += columns + [nil] if columns
+      options += associations.empty? ? [] : associations + [nil] if associations
+      options += constants.map { |constant| constant.gsub('@@', '') } + [nil] if constants
+      options += methods + [nil] if methods
       
       search_term = TextMate::UI.request_string(:title => "Find attribute", :prompt => "Attribute name")      
       options = array_sorted_search(options, search_term) unless search_term.nil? or search_term == ''
       
       matching_class_message = "(Listing attributes for #{Inflector.classify(klass)})"
-      options += [nil, RELOAD_MESSAGE] + [nil, matching_class_message]
+      options += [nil, RELOAD_MESSAGE, nil, matching_class_message]
       
       
       valid_options = options.select { |e| !e.nil? and e != RELOAD_MESSAGE and e != matching_class_message }
@@ -151,6 +170,7 @@ module TextMate
       elsif valid_options.size == 0
         TextMate.exit_show_tool_tip("No matching results")
       else
+        # TextMate.exit_show_tool_tip(options.join("\n"))
         
         selected = TextMate::UI.menu(options)
         return if selected.nil?
