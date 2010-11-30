@@ -157,7 +157,7 @@ module TextMate
       options += constants.map { |constant| constant.gsub('@@', '') } + [nil] if constants
       options += methods + [nil] if methods
       
-      search_term = TextMate::UI.request_string(:title => "Find attribute", :prompt => "Attribute name")      
+      search_term = TextMate::UI.request_string(:title => "Find a method", :prompt => "Find method for: '#{klass}'")
       options = array_sorted_search(options, search_term) unless search_term.nil? or search_term == ''
       
       matching_class_message = "(Listing attributes for #{Inflector.classify(klass)})"
