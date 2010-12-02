@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>assert_response :${1:success}${2:, @response.body}$0</string>
+	<string>assert_response :${1:success}</string>
 	<key>name</key>
 	<string>assert_response</string>
 	<key>scope</key>
