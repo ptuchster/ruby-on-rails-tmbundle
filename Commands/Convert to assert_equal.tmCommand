@@ -8,8 +8,8 @@
 	<string>#!/usr/bin/env ruby -wKU
 
 out = STDIN.read
-if match = out.match(/(.*)\.(.*?)\s*=\s*(.*)\s*/)
-	out = "#{match[1]}.update_attributes!(:${1:#{match[2]}} =&gt; ${2:#{match[3]}})$0"
+if match = out.match(/(\s*)(.*?)\s*=\s*(.*)\s*/)
+	out = "#{match[1]}assert_equal ${1:#{match[3]}}, ${2:#{match[2]}}$0"
 end
 
 print out</string>
@@ -18,14 +18,14 @@ print out</string>
 	<key>input</key>
 	<string>selection</string>
 	<key>keyEquivalent</key>
-	<string>^@u</string>
+	<string>^@e</string>
 	<key>name</key>
-	<string>Convert to update_attributes!</string>
+	<string>Convert to assert_equal</string>
 	<key>output</key>
 	<string>insertAsSnippet</string>
 	<key>scope</key>
-	<string>source.ruby.rails</string>
+	<string>source.ruby</string>
 	<key>uuid</key>
-	<string>C07E1168-DB6F-4B7E-AB8C-D03FA4B44610</string>
+	<string>5120697E-A671-44E0-B0B8-17D0F00877CD</string>
 </dict>
 </plist>
