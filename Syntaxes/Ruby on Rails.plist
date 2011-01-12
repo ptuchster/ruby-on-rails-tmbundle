@@ -318,9 +318,15 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b(alias_method_chain|alias_attribute|delegate|cattr_accessor|mattr_accessor|returning|memoize)\b</string>
+			<string>\b(alias_method_chain|alias_attribute|delegate|cattr_accessor|mattr_accessor|memoize)\b</string>
 			<key>name</key>
 			<string>support.function.activesupport.rails</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\b(returning)\b</string>
+			<key>name</key>
+			<string>keyword.function.activesupport.rails</string>
 		</dict>
 		<dict>
 			<key>begin</key>
