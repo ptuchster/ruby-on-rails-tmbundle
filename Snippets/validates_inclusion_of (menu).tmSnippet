@@ -9,8 +9,8 @@
 	<key>scope</key>
 	<string>source.ruby.rails</string>
 	<key>tabTrigger</key>
-	<string>vi</string>
+	<string>v</string>
 	<key>uuid</key>
-	<string>4611F02E-E9BF-11DC-8518-00112475D960</string>
+	<string>F9CDC710-BA30-4FFA-B170-CF1956802573</string>
 </dict>
 </plist>

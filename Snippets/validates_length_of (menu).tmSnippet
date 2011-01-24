@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>validates_inclusion_of :${1:attribute}${2:, :in =&gt; ${3:%w[${4:mov avi}]}, :on =&gt; :${5:create}, :message =&gt; "${6:extension %s is not included in the list}"}</string>
+	<string>validates_length_of :${1:attribute}, :within =&gt; ${2:3..20}${3:, :on =&gt; :${4:create}, :message =&gt; "${5:must be present}"}</string>
 	<key>name</key>
-	<string>validates_inclusion_of</string>
+	<string>validates_length_of</string>
 	<key>scope</key>
 	<string>source.ruby.rails</string>
 	<key>tabTrigger</key>
-	<string>vi</string>
+	<string>v</string>
 	<key>uuid</key>
-	<string>4611F02E-E9BF-11DC-8518-00112475D960</string>
+	<string>E75BE88E-B1D8-4B55-BB86-002441EA6C95</string>
 </dict>
 </plist>
