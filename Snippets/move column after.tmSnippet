@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>move :${1:table_name}, :${2:column_name}, :after =&gt; :${3:after_column}$0</string>
+	<string>move :${1:table_name}, :${2:column_name}, :after =&gt; :${0:after_column}</string>
 	<key>name</key>
 	<string>move column after</string>
 	<key>scope</key>
