@@ -13,7 +13,7 @@ TextMate::ListMethods.new.run!</string>
 	<key>input</key>
 	<string>selection</string>
 	<key>keyEquivalent</key>
-	<string>~ </string>
+	<string>~@ </string>
 	<key>name</key>
 	<string>List methods of a model</string>
 	<key>output</key>
