@@ -30,14 +30,14 @@ module TextMate
     def collect_factory_names
       names = []
       self.each_factory_line do |line|
-        result = line.match(%r@Factory\.define\(:(\w+).*\)@)
+        result = line.match(%r!Factory\.define\(?\s*:(\w+).*\)?!)
         names << result[1] if result
       end
       return names
     end
     
     def each_factory_line
-      factory_files = Dir.glob(File.join(RailsPath.new.rails_root.to_s, "test", "factories", "**/**/*_factory.rb"))
+      factory_files = Dir.glob(File.join(RailsPath.new.rails_root.to_s, "test", "factories", "**/**/*.rb")) + Dir.glob(File.join(RailsPath.new.rails_root.to_s, "spec", "factories", "**/**/*.rb"))
       seen_files = {}
       factory_files.each do |file|
         filename = File.basename(file)
