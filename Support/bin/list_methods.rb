@@ -10,6 +10,7 @@ module TextMate
   class ListMethods
     CACHE_DIR      = File.join(TextMate.project_directory, "tmp", "textmate")
     CACHE_FILE     = File.join(CACHE_DIR, "methods_cache.yml")
+    TEMP_CACHE_FILE     = File.join(CACHE_DIR, "temp_methods_cache.yml")
     RELOAD_MESSAGE = "Reload database schema..."
     RAILS_REGEX    = /^Rails (\d\.?){3}(\w+)?$/
     
@@ -60,7 +61,7 @@ module TextMate
     
     def cache_attributes
       _cache = {}
-      File.delete(CACHE_FILE) if File.exists?(CACHE_FILE)
+      File.delete(TEMP_CACHE_FILE) if File.exists?(TEMP_CACHE_FILE)
 
       TextMate.call_with_progress(:title => "Contacting database", :message => "Fetching database schema...") do
         self.update_cache(_cache)
@@ -71,7 +72,7 @@ module TextMate
     
     def cache_attributes_in_background
       _cache = {}
-      File.delete(CACHE_FILE) if File.exists?(CACHE_FILE)
+      File.delete(TEMP_CACHE_FILE) if File.exists?(TEMP_CACHE_FILE)
       self.update_cache(_cache)
 
       return _cache
@@ -100,10 +101,12 @@ module TextMate
           end
         end
 
-        File.open(CACHE_FILE, 'w') { |out| YAML.dump(_cache, out ) }
+        File.open(TEMP_CACHE_FILE, 'w') { |out| YAML.dump(_cache, out ) }
         
       rescue Exception => e
         @error_message = "Fix it: #{e.message}"
+      else
+        `cp -f #{TEMP_CACHE_FILE} #{CACHE_FILE}`
       end
     end
     
