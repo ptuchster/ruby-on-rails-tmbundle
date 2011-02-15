@@ -418,7 +418,7 @@
 							<key>comment</key>
 							<string>beginCaptures = { 1 = { name = 'support.function.should.ruby.rails.shoulda'; }; };</string>
 							<key>end</key>
-							<string>\b(do)\s*$</string>
+							<string>\b(do)\b\s*</string>
 							<key>endCaptures</key>
 							<dict>
 								<key>1</key>
@@ -443,7 +443,7 @@
 							<key>comment</key>
 							<string>beginCaptures = { 1 = { name = 'support.function.setup.ruby.rails.shoulda'; }; };</string>
 							<key>end</key>
-							<string>\b(do)\s*$</string>
+							<string>\b(do)\b\s*</string>
 							<key>endCaptures</key>
 							<dict>
 								<key>1</key>
