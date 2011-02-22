@@ -439,6 +439,31 @@
 						</dict>
 						<dict>
 							<key>begin</key>
+							<string>^\s*(use_(should|setup|context))\b</string>
+							<key>comment</key>
+							<string>beginCaptures = { 1 = { name = 'support.function.should.ruby.rails.shoulda.shared_should'; }; };</string>
+							<key>end</key>
+							<string>(\n)|\b(do)\b\s*</string>
+							<key>endCaptures</key>
+							<dict>
+								<key>2</key>
+								<dict>
+									<key>name</key>
+									<string>keyword.control.start-block.ruby.shoulda</string>
+								</dict>
+							</dict>
+							<key>name</key>
+							<string>meta.should.ruby.rails.shoulda.shared_should</string>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>include</key>
+									<string>source.ruby</string>
+								</dict>
+							</array>
+						</dict>
+						<dict>
+							<key>begin</key>
 							<string>^\s*(setup)\b</string>
 							<key>comment</key>
 							<string>beginCaptures = { 1 = { name = 'support.function.setup.ruby.rails.shoulda'; }; };</string>
@@ -462,7 +487,7 @@
 						</dict>
 						<dict>
 							<key>begin</key>
-							<string>^\s*(shared_should|shared_context_should|shared_should_be|shared_context_for)\b</string>
+							<string>^\s*(shared_should|shared_context_should|shared_should_be|shared_context_for|share_should|share_context|should_setup)\b</string>
 							<key>comment</key>
 							<string>beginCaptures = { 1 = { name = 'support.function.should.ruby.rails.shoulda'; }; };</string>
 							<key>end</key>
