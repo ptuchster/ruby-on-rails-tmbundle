@@ -22,7 +22,6 @@ def ruby(command)
   `/usr/bin/env ruby #{command}`
 end
 
-# Used to call Rails 3 generators
-def exec_direct(command)
-  `#{command}`
+def rails(command)
+  `rails #{command}`
 end
