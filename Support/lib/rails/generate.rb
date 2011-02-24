@@ -9,7 +9,7 @@ class Generator
   def question
     @question || begin
       FileUtils.chdir(RailsPath.new.rails_root) do
-        output = ruby "script/generate #{name}"
+        output = rails "generate #{name}"
         output =~ /^(Usage.*)$/
         @question = $1 || "Arguments for #{name} generator:"
       end
@@ -48,7 +48,7 @@ class Generator
   def self.find_generator_names
     list = nil
     FileUtils.chdir(RailsPath.new.rails_root) do
-      output = ruby 'script/generate | grep "^  [A-Z]" | sed -e "s/  \w+:\s//"'
+      output = rails 'generate | grep "^  [A-Za-z]" | sed -e "s/  \w+:\s//"'
       list = output.split(/[,\s]+/).reject {|f| f =~ /:/ || f == "" }
     end
     list
