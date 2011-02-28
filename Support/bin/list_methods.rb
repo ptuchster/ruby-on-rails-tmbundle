@@ -28,33 +28,36 @@ module TextMate
         display_menu(klass)
       elsif cache[klass_without_undescore = klass.split('_').last]
         display_menu(klass_without_undescore)
-      elsif initials_match = cache.keys.detect { |word| first_letter_of_each_word(word) == current_word }
-        display_menu(initials_match)
       else
-        options = [
-          @error || "'#{Inflector.camelize(klass)}' is not an Active Record derived class or was not recognized as a class.  Pick one below instead:", 
-          nil,
-          cache.keys.sort,
-          nil,
-          RELOAD_MESSAGE
-        ].flatten
-        selected = TextMate::UI.menu(options)
-
-        return if selected.nil?
-
-        case options[selected]
-        when options.first
-          if @error && @error =~ /^#{TextMate.project_directory}(.+?)[:]?(\d+)/
-            TextMate.open(File.join(TextMate.project_directory, $1), $2.to_i)
-          else
-            klass_file = File.join(TextMate.project_directory, "/app/models/#{klass}.rb")
-            TextMate.open(klass_file) if File.exist?(klass_file)
-          end
-        when RELOAD_MESSAGE
-          cache_attributes and run!
+        initials_matchs = cache.keys.select { |word| first_letter_of_each_word(word) == current_word }
+        if initials_matchs.size == 1
+          display_menu(initials_matchs.first)
         else
-          klass = options[selected]
-          clone_cache(klass, current_word) and display_menu(klass)
+          options = [
+            @error || "'#{Inflector.camelize(klass)}' is not an Active Record derived class or was not recognized as a class.  Pick one below instead:", 
+            nil,
+            array_sorted_search(cache.keys, current_word),
+            nil,
+            RELOAD_MESSAGE
+          ].flatten
+          selected = TextMate::UI.menu(options)
+
+          return if selected.nil?
+
+          case options[selected]
+          when options.first
+            if @error && @error =~ /^#{TextMate.project_directory}(.+?)[:]?(\d+)/
+              TextMate.open(File.join(TextMate.project_directory, $1), $2.to_i)
+            else
+              klass_file = File.join(TextMate.project_directory, "/app/models/#{klass}.rb")
+              TextMate.open(klass_file) if File.exist?(klass_file)
+            end
+          when RELOAD_MESSAGE
+            cache_attributes and run!
+          else
+            klass = options[selected]
+            display_menu(klass)
+          end
         end
       end
     end
