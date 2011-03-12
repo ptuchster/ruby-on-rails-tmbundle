@@ -31,7 +31,7 @@ def list_latest_migrations_from_path(path)
   out &lt;&lt; '&lt;ol&gt;'
   link_index = 0
   migrations.each do |migration|
-    migration_time = Time.parse("#{migration[0..3]}-#{migration[4..5]}-#{migration[6..7]} #{migration[8..9]}:#{migration[10..11]}:#{migration[12..13]}").strftime("%b %d, %Y  %I:%M%p")
+    migration_time = Time.parse("#{migration[0..3]}-#{migration[4..5]}-#{migration[6..7]} #{migration[8..9]}:#{migration[10..11]}:#{migration[12..13]}").strftime("%b %d, %Y  %I:%M%p") rescue nil
     migration_name = migration[15..-1]
     out &lt;&lt; &lt;&lt;-EOT
       &lt;li&gt;
