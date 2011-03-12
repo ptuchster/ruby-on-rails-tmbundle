@@ -18,25 +18,25 @@ module TextMate
       TextMate.exit_show_tool_tip("Place cursor on class name (or variation) to show its schema") if current_word.nil? || current_word.empty?
       # TextMate.exit_show_tool_tip("You don't have Rails installed in this gemset.") unless rails_present?
 
-      if current_word == current_word.downcase
-        klass = Inflector.singularize(Inflector.underscore(current_word))
+      if caller == caller.downcase
+        klass = Inflector.singularize(Inflector.underscore(caller))
       else
-        klass = Inflector.classify(current_word)
+        klass = Inflector.classify(caller)
       end
 
       if cache[klass]
-        display_menu(klass)
+        display_menu(klass, method_search_term)
       elsif cache[klass_without_undescore = klass.split('_').last]
-        display_menu(klass_without_undescore)
+        display_menu(klass_without_undescore, method_search_term)
       else
-        initials_matchs = cache.keys.select { |word| first_letter_of_each_word(word) == current_word }
+        initials_matchs = cache.keys.select { |word| first_letter_of_each_word(word) == caller }
         if initials_matchs.size == 1
-          display_menu(initials_matchs.first)
+          display_menu(initials_matchs.first, method_search_term)
         else
           options = [
             @error || "'#{Inflector.camelize(klass)}' is not an Active Record derived class or was not recognized as a class.  Pick one below instead:", 
             nil,
-            array_sorted_search(cache.keys, current_word),
+            array_sorted_search(cache.keys, caller),
             nil,
             RELOAD_MESSAGE
           ].flatten
@@ -56,7 +56,7 @@ module TextMate
             cache_attributes and run!
           else
             klass = options[selected]
-            display_menu(klass)
+            display_menu(klass, method_search_term)
           end
         end
       end
@@ -151,7 +151,7 @@ module TextMate
       File.open(CACHE_FILE, 'w') { |out| YAML.dump(cache, out ) }
     end
    
-    def display_menu(klass)
+    def display_menu(klass, search_term=nil)
       columns      = cache[klass][:columns]
       associations = cache[klass][:associations]
       constants    = cache[klass][:constants]
@@ -163,7 +163,7 @@ module TextMate
       options += constants.map { |constant| constant.gsub('@@', '') } + [nil] if constants
       options += methods + [nil] if methods
       
-      search_term = TextMate::UI.request_string(:title => "Find a method", :prompt => "Find method for: '#{klass}'")
+      search_term = TextMate::UI.request_string(:title => "Find a method", :prompt => "Find method for: '#{klass}'") if search_term.nil?
       options = array_sorted_search(options, search_term) unless search_term.nil? or search_term == ''
       
       matching_class_message = "(Listing attributes for #{Inflector.classify(klass)})"
@@ -188,8 +188,15 @@ module TextMate
         out = options[selected]
       end
 
-      out = ".#{out}" unless input_text =~ /\.$/
-      TextMate.exit_insert_text(out)
+      insert_selection_into_file(out)
+    end
+    
+    def insert_selection_into_file(selected_method)
+      if current_word =~ /\.$/ or method_search_term
+        TextMate.exit_replace_text(selected_method)
+      else
+        TextMate.exit_replace_text("#{caller}.#{selected_method}")
+      end
     end
    
     def cache
@@ -197,8 +204,32 @@ module TextMate
       @cache ||= File.exist?(CACHE_FILE) ? YAML.load(File.read(CACHE_FILE)) : cache_attributes
     end
     
+    def caller
+      caller_and_method_search_term.first
+    end
+    
+    def method_search_term
+      caller_and_method_search_term.last
+    end
+    
+    def caller_and_method_search_term
+      @caller_and_method ||= (
+        parts = current_word.split('.')
+
+        if parts.size == 1
+          caller = parts.first
+          method_search_term = nil
+        else
+          caller = parts[0..-2].join('.')
+          method_search_term = parts[-1]
+        end
+
+        [caller, method_search_term]
+      )
+    end
+    
     def current_word
-      @current_word ||= input_text.split('.').select { |e| e != '' }.last
+      @current_word ||= input_text
     end
     
     def input_text
