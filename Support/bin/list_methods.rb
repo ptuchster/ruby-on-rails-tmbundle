@@ -219,8 +219,11 @@ module TextMate
         if parts.size == 1
           caller = parts.first
           method_search_term = nil
+        elsif current_word[-1, 1] == '.'
+          caller = parts[-1]
+          method_search_term = nil
         else
-          caller = parts[0..-2].join('.')
+          caller = parts[-2]
           method_search_term = parts[-1]
         end
 
