@@ -487,7 +487,7 @@
 						</dict>
 						<dict>
 							<key>begin</key>
-							<string>^\s*(shared_should|shared_context_should|shared_should_be|shared_context_for|share_should|share_context|should_setup)\b</string>
+							<string>^\s*(shared_should|shared_context_should|shared_should_be|shared_context_for|share_should|share_context|share_setup)\b</string>
 							<key>comment</key>
 							<string>beginCaptures = { 1 = { name = 'support.function.should.ruby.rails.shoulda'; }; };</string>
 							<key>end</key>
