@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>${1:singular}_path(${2:id}${3:, :format =&gt; ${4::xml}})$0</string>
 	<key>name</key>
-	<string>delete - singular_path(id)  [DESTROY]</string>
+	<string>destroy - singular_path(id)  [DELETE]</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>
