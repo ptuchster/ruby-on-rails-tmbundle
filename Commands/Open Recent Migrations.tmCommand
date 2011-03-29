@@ -35,7 +35,7 @@ def list_latest_migrations_from_path(path)
     migration_name = migration[15..-1]
     out &lt;&lt; &lt;&lt;-EOT
       &lt;li&gt;
-        &lt;a id="link_#{link_index += 1}" href="txmt://open?url=file://#{path}/#{migration}" onclick="javascript:window.close();"&gt;#{migration_name}&lt;/a&gt;&lt;br/&gt;
+        &lt;a id="link_#{link_index += 1}" href="txmt://open?url=file://#{path}/#{migration}" onclick="javascript:window.close();"&gt;#{migration_name}&lt;/a&gt; &lt;small&gt;| #{migration}&lt;/small&gt;&lt;br/&gt;
         &lt;small&gt;(#{migration_time})&lt;/small&gt;
       &lt;/li&gt;
     EOT
