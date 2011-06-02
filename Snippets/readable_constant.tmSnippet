@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>readable_constant(:${1:name}, ${2:value})$0</string>
+	<string>readable_constant :${1:name}, ${2:value}$0</string>
 	<key>name</key>
 	<string>readable_constant</string>
 	<key>scope</key>
