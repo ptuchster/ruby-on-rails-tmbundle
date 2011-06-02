@@ -70,7 +70,7 @@ module TextMate
         self.update_cache(_cache)
       end
 
-      return _cache
+      _cache
     end
     
     def cache_attributes_in_background
@@ -78,7 +78,7 @@ module TextMate
       File.delete(TEMP_CACHE_FILE) if File.exists?(TEMP_CACHE_FILE)
       self.update_cache(_cache)
 
-      return _cache
+      _cache
     end
     
    protected
@@ -99,7 +99,7 @@ module TextMate
           end
           
           if klass and klass.class.is_a?(Class) and klass.ancestors.include?(ActiveRecord::Base)
-            _cache[klass.name] = { :constants => class_variables_for_class(klass), :methods => class_methods_for_class(klass) }
+            _cache[klass.name] = { :variables => class_variables_for_class(klass), :constants => constants_for_class(klass), :methods => class_methods_for_class(klass) }
             _cache[klass.name.underscore] = { :associations => associations_for_class(klass), :columns => klass.column_names, :methods => methods_for_class(klass) }
           end
         end
@@ -123,7 +123,7 @@ module TextMate
         out -= m::InstanceMethods.instance_methods if defined?(m::InstanceMethods)
         out -= m::ClassMethods.instance_methods if defined?(m::ClassMethods)
       end
-      return out
+      out
     end
     
     def methods_for_class(klass)
@@ -133,15 +133,19 @@ module TextMate
       out -= klass.column_names.map { |e| ["#{e}=", e, "#{e}?"]}.flatten 
       out -= associations_for_class(klass).map { |e| ["create_#{e}", "build_#{e}", "validate_associated_records_for_#{e}", "#{e}=", "autosave_associated_records_for_#{e}", e, "#{Inflector.singularize(e)}_ids", "#{Inflector.singularize(e)}_ids="] }.flatten 
       out -= class_variables_for_class(klass).map { |e| e.gsub('@@', '') }
-      return out
+      out
+    end
+    
+    def constants_for_class(klass)
+      klass.constants - ActiveRecord::Base.constants
     end
     
     def associations_for_class(klass)
-      return klass.reflections.stringify_keys.keys
+      klass.reflections.stringify_keys.keys
     end
     
     def class_variables_for_class(klass)
-      return klass.class_variables - ActiveRecord::Base.class_variables
+      klass.class_variables - ActiveRecord::Base.class_variables
     end
    
     def clone_cache(klass, new_word)
@@ -154,13 +158,15 @@ module TextMate
     def display_menu(klass, search_term=nil)
       columns      = cache[klass][:columns]
       associations = cache[klass][:associations]
+      variables    = cache[klass][:variables]
       constants    = cache[klass][:constants]
       methods      = cache[klass][:methods]
 
       options = []
       options += columns + [nil] if columns
       options += associations.empty? ? [] : associations + [nil] if associations
-      options += constants.map { |constant| constant.gsub('@@', '') } + [nil] if constants
+      options += constants.map { |constant| "::#{constant}" } + [nil] if constants
+      options += variables.map { |variable| variable.gsub('@@', '') } + [nil] if variables
       options += methods + [nil] if methods
       
       search_term = TextMate::UI.request_string(:title => "Find a method", :prompt => "Find method for: '#{klass}'") if search_term.nil?
@@ -192,10 +198,11 @@ module TextMate
     end
     
     def insert_selection_into_file(selected_method)
-      if current_word =~ /\.$/ or method_search_term
+      if current_word =~ /\.|(::)$/ or method_search_term
         TextMate.exit_replace_text(selected_method)
       else
-        TextMate.exit_replace_text("#{caller}.#{selected_method}")
+        operator = selected_method =~ /^::/ ? '' : '.'
+        TextMate.exit_replace_text("#{caller}#{operator}#{selected_method}")
       end
     end
    
@@ -214,12 +221,12 @@ module TextMate
     
     def caller_and_method_search_term
       @caller_and_method ||= (
-        parts = current_word.split('.')
+        parts = current_word.split(/\.|(::)/)
 
         if parts.size == 1
           caller = parts.first
           method_search_term = nil
-        elsif current_word[-1, 1] == '.'
+        elsif current_word =~ /\.|(::)$/
           caller = parts[-1]
           method_search_term = nil
         else
@@ -236,7 +243,7 @@ module TextMate
     end
     
     def input_text
-      Word.current_word('_a-zA-Z0-9.', :left)
+      Word.current_word(':_a-zA-Z0-9.', :left)
     end
     
     def rails_present?
