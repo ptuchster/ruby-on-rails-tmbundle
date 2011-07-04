@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>tap { ${2:|${1:e}|} $0 }</string>
+	<string>tap { |${1:e}| $0 }</string>
 	<key>name</key>
 	<string>tap</string>
 	<key>scope</key>
