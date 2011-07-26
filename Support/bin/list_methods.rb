@@ -64,7 +64,7 @@ module TextMate
     
     def cache_attributes
       _cache = {}
-      File.delete(TEMP_CACHE_FILE) if File.exists?(TEMP_CACHE_FILE)
+      reset_cache
 
       TextMate.call_with_progress(:title => "Contacting database", :message => "Fetching database schema...") do
         self.update_cache(_cache)
@@ -75,13 +75,19 @@ module TextMate
     
     def cache_attributes_in_background
       _cache = {}
-      File.delete(TEMP_CACHE_FILE) if File.exists?(TEMP_CACHE_FILE)
+      
+      reset_cache
       self.update_cache(_cache)
 
       _cache
     end
     
    protected
+   
+   def reset_cache
+     FileUtils.mkdir_p(CACHE_DIR)
+     File.delete(TEMP_CACHE_FILE) if File.exists?(TEMP_CACHE_FILE)
+   end
    
    def first_letter_of_each_word(string)
      string.split('_').map { |word| word[0,1] }.join("")
@@ -107,6 +113,8 @@ module TextMate
         File.open(TEMP_CACHE_FILE, 'w') { |out| YAML.dump(_cache, out ) }
         
       rescue Exception => e
+        puts e
+        puts e.backtrace
         @error_message = "Fix it: #{e.message}"
       else
         `cp -f #{TEMP_CACHE_FILE} #{CACHE_FILE}`
@@ -207,7 +215,7 @@ module TextMate
     end
    
     def cache
-      Dir.mkdir(CACHE_DIR) unless File.exists?(CACHE_DIR)
+      FileUtils.mkdir_p(CACHE_DIR)
       @cache ||= File.exist?(CACHE_FILE) ? YAML.load(File.read(CACHE_FILE)) : cache_attributes
     end
     
