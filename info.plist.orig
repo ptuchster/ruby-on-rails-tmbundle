@@ -25,7 +25,20 @@
 		<string>86DD56A8-C655-49DA-997B-8929E5D9407E</string>
 		<string>F0A39EAD-6D01-437B-9A79-468E0571CB3D</string>
 		<string>43304E62-66F7-424D-8AF6-33E0237BF349</string>
+<<<<<<< HEAD
+		<string>786980D8-FA69-4542-85A3-5E48CFAA6814</string>
+		<string>47A6800A-DC7E-4F72-AA0D-CEE2488E1618</string>
+		<string>1CB65A0D-4FEC-4438-9B4F-8B0BD13FB875</string>
+		<string>4E286CB4-069E-474C-A970-95216FE7DE95</string>
+		<string>E2CE2E3B-8A61-4866-9AF5-A12F44CF7233</string>
+		<string>86CFB156-E72B-440F-9C7D-08A3375C3ADB</string>
+		<string>BA0DE6C7-EAD3-42C9-8ABB-2B9A5F2FE225</string>
+		<string>BCB25D36-2D3F-41E9-B2CF-37D6E883E8D1</string>
+		<string>3BDD0D52-443E-4F5F-AE09-ABCC2ABE9A42</string>
+		<string>3F26FDB4-ACF9-4856-9312-6A4D78DC8564</string>
+=======
 		<string>D2783155-23F3-4B90-A317-5BD139471193</string>
+>>>>>>> Upgrades for Rails 3.
 	</array>
 	<key>description</key>
 	<string>&lt;a href="http://www.rubyonrails.com/"&gt;Ruby on Rails&lt;/a&gt; is a full-stack framework for developing database-backed web applications, in Ruby, according to the Model-View-Control pattern.</string>
@@ -955,6 +968,12 @@
 		<string>B660FC85-F69A-43BC-A72A-748CBEA0AA9A</string>
 		<string>B105C480-FB21-4511-9AD0-D5B4FED3BA21</string>
 		<string>7CC002AE-83BA-4294-B87D-DE9790839D97</string>
+<<<<<<< HEAD
+		<string>8F87F3C7-8ABB-4778-9786-64CF95E99160</string>
+		<string>5D01527E-48FA-4A3D-A10B-A383C8AE3942</string>
+		<string>CEA1D76C-DEB0-4ADB-840D-220E569D5B8F</string>
+=======
+>>>>>>> Upgrades for Rails 3.
 		<string>83B80B60-6143-4465-B064-0DA25DDDCAA7</string>
 		<string>FE6DB9BA-3C45-46BD-8E4F-841F2E7E767B</string>
 		<string>59C996A9-C39D-4F54-A8DC-888AA93661B5</string>

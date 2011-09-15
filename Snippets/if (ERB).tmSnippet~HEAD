@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>scope :${1:name}, lambda { |${2:param}| ${3:where(${4::${5:field} =&gt; ${6:"${7:value}"}})} }</string>
+	<string>&lt;% if ${1:condition} %&gt;$0</string>
 	<key>name</key>
-	<string>scope lambda</string>
+	<string>if (ERB)</string>
 	<key>scope</key>
-	<string>meta.rails.model</string>
+	<string>text.html.ruby</string>
 	<key>tabTrigger</key>
-	<string>scope</string>
+	<string>if</string>
 	<key>uuid</key>
-	<string>5D01527E-48FA-4A3D-A10B-A383C8AE3942</string>
+	<string>1ED49D4D-D4A0-4CF0-8ED2-DCE70854B839</string>
 </dict>
 </plist>

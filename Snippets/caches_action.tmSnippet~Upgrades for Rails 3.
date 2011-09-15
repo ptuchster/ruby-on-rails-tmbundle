@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>scope :${1:name}, lambda { |${2:param}| ${3:where(${4::${5:field} =&gt; ${6:"${7:value}"}})} }</string>
+	<string>caches_action :${1:action}</string>
 	<key>name</key>
-	<string>scope lambda</string>
+	<string>caches_action</string>
 	<key>scope</key>
-	<string>meta.rails.model</string>
+	<string>source.ruby.rails</string>
 	<key>tabTrigger</key>
-	<string>scope</string>
+	<string>cache</string>
 	<key>uuid</key>
-	<string>5D01527E-48FA-4A3D-A10B-A383C8AE3942</string>
+	<string>017634C2-FC55-41BA-B551-82436809D71B</string>
 </dict>
 </plist>

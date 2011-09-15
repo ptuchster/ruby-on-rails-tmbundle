@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>scope :${1:name}, lambda { |${2:param}| ${3:where(${4::${5:field} =&gt; ${6:"${7:value}"}})} }</string>
+	<string>before_update </string>
 	<key>name</key>
-	<string>scope lambda</string>
+	<string>before_update</string>
 	<key>scope</key>
-	<string>meta.rails.model</string>
+	<string>source.ruby.rails</string>
 	<key>tabTrigger</key>
-	<string>scope</string>
+	<string>befu</string>
 	<key>uuid</key>
-	<string>5D01527E-48FA-4A3D-A10B-A383C8AE3942</string>
+	<string>1C20EEBE-B4BA-48C8-9B33-7B5BB00D958C</string>
 </dict>
 </plist>

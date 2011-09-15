@@ -3,14 +3,16 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>new_${1:singular}_path${2:(:format =&gt; ${3::xml})}$0</string>
+	<string>resources :${1:posts}${2: do
+  $3
+end}</string>
 	<key>name</key>
-	<string>new - new_singular_path  [GET]</string>
+	<string>resources</string>
 	<key>scope</key>
-	<string>source.ruby</string>
+	<string>meta.rails.routes</string>
 	<key>tabTrigger</key>
-	<string>rest</string>
+	<string>res</string>
 	<key>uuid</key>
-	<string>CF5D5CC3-27C3-4CA3-AAFE-2A9F0A6EBF88</string>
+	<string>92E54811-6041-4BF8-B808-918B8C11F1D9</string>
 </dict>
 </plist>
