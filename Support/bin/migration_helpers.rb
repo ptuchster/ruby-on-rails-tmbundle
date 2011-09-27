@@ -43,11 +43,6 @@ module TextMate
     end
     
     def migration_type(table_name, column)
-      File.open('/Users/phuibonhoa/Desktop/tmlog.txt', 'w') do |file|
-        file.puts Inflector.classify(table_name)
-      end
-      
-
       klass = Object.const_get(Inflector.classify(table_name))
       out = klass.columns.detect { |klass_column| klass_column.name == column }
       out = out.type if out
