@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>each_with_object(${1:{\}}) { |${2:value}, ${3:object}| $0 }</string>
+	<string>assert_template :${1:index}$0</string>
 	<key>name</key>
-	<string>each_with_object</string>
+	<string>assert_template</string>
 	<key>scope</key>
 	<string>source.ruby.rails</string>
 	<key>tabTrigger</key>
-	<string>eawo</string>
+	<string>aste</string>
 	<key>uuid</key>
-	<string>88C909D0-2DB7-4618-AD57-56EDC324D19D</string>
+	<string>D3A1BF27-3E15-4B5E-872E-117BB176ED16</string>
 </dict>
 </plist>
