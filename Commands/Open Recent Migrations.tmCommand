@@ -9,7 +9,8 @@
 require 'time'
 
 def list_latest_migrations_from_path(path)
-  migrations = Dir.entries(path)[-50..-1] if File.directory?(path)
+  Dir.chdir(path)
+  migrations = Dir.glob('*.rb').reverse[1..50] if File.directory?(path)
   migrations = [] if !defined?(migrations) or migrations.nil?
   migrations = migrations.reverse
 
