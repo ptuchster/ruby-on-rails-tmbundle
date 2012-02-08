@@ -9,7 +9,7 @@
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>
-	<string>rest</string>
+	<string>restp</string>
 	<key>uuid</key>
 	<string>08BD6F80-48C9-4CC6-85DE-4C7A0BDA59AA</string>
 </dict>
