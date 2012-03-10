@@ -10,9 +10,7 @@ require 'time'
 
 def list_latest_migrations_from_path(path)
   Dir.chdir(path)
-  migrations = Dir.glob('*.rb')[1..50] if File.directory?(path)
-  migrations = [] if !defined?(migrations) or migrations.nil?
-  migrations = migrations.reverse
+  migrations = File.directory?(path) ? Dir.glob('*.rb').reverse.first(50) : []
 
   out = &lt;&lt;-EOT
   &lt;style&gt;
