@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>Rails.root.join(*%w[$1])$0</string>
+	<string>Rails.root.join($1)$0</string>
 	<key>name</key>
 	<string>Rails.root</string>
 	<key>scope</key>
