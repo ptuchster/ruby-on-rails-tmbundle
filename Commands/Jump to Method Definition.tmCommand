@@ -11,8 +11,6 @@
 	<string>word</string>
 	<key>input</key>
 	<string>selection</string>
-	<key>keyEquivalent</key>
-	<string>^f</string>
 	<key>name</key>
 	<string>Jump to Definition</string>
 	<key>output</key>

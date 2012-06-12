@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>assert_select '${1:path}'${2:, :${3:text} =&gt; ${4:'${5:inner_html}'}}${6: do
+	<string>assert_select '${1:path}'${2:, ${3:text}: ${4:'${5:inner_html}'}}${6: do
 	$0
 end}</string>
 	<key>name</key>
