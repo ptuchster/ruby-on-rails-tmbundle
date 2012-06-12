@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>assert_template :${1:index}</string>
+	<string>require_dependency '${1:dependency}'</string>
 	<key>name</key>
-	<string>assert_template</string>
+	<string>require_dependency</string>
 	<key>scope</key>
-	<string>meta.rails.functional_test</string>
+	<string>source.ruby.rails</string>
 	<key>tabTrigger</key>
-	<string>ast</string>
+	<string>rd</string>
 	<key>uuid</key>
-	<string>C14241ED-7B21-49BA-B317-A0D55690D265</string>
+	<string>F723026E-AD13-4C4B-8A1B-4545C4193D93</string>
 </dict>
 </plist>
