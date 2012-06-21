@@ -7,20 +7,20 @@
 	<key>command</key>
 	<string>#!/usr/bin/env ruby
 require File.join(ENV['TM_BUNDLE_SUPPORT'], 'bin', 'list_factories.rb')
-TextMate::ListFactories.new.run!</string>
+TextMate::ListFactories.new.run!("factory_girl")</string>
 	<key>fallbackInput</key>
 	<string>word</string>
 	<key>input</key>
 	<string>none</string>
 	<key>name</key>
-	<string>List factories</string>
+	<string>List factories (FactoryGirl)</string>
 	<key>output</key>
 	<string>insertAsSnippet</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>
-	<string>Fac</string>
+	<string>Facg</string>
 	<key>uuid</key>
-	<string>B247429C-0B30-48A5-8DBF-339EDDB103C7</string>
+	<string>1207569B-5100-4FCC-B939-BCAD3490B774</string>
 </dict>
 </plist>

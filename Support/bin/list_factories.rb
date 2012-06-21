@@ -5,23 +5,33 @@ require File.join(File.dirname(__FILE__), '..', 'lib', 'rails_bundle_tools')
 
 module TextMate
   class ListFactories
-    def run!
+    def run!(style='factory')
+      if style == 'factory_girl'
+        trigger = 'Facg'
+        prepend = 'FactoryGirl.${1:build}(:'
+        append = '$2)$0'
+      else
+        trigger = 'Fac'
+        prepend = 'Factory(:'
+        append = '$1)$0'
+      end
+      
       search_term = TextMate::UI.request_string(:title => "Find Factory", :prompt => "Factory Name")
       all_names = collect_factory_names
       
       matches = array_sorted_search(all_names, search_term)
             
       if matches.empty?
-        TextMate.exit_show_tool_tip "No factories found matching '#{search_term}'"
-        print ''
+        print trigger
+        TextMate::UI.tool_tip "No factories found matching '#{search_term}'"
       elsif matches.size == 1
-        print "Factory(:#{matches.first}$1)$0"
+        print "#{prepend}#{matches.first}#{append}"
       else
         selected = TextMate::UI.menu(matches)
         if selected.nil?
-          print ''
+          print trigger
         else
-          print "Factory(:#{matches[selected]}$1)$0"
+          print "#{prepend}#{matches[selected]}#{append}"
         end
       end
     end
@@ -51,5 +61,3 @@ module TextMate
     end
   end    
 end
-
-TextMate::ListFactories.new.run!
