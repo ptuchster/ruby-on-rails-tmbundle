@@ -31,6 +31,7 @@ module TextMate
       names = []
       self.each_factory_line do |line|
         result = line.match(%r!Factory\.define\(?\s*:(\w+).*\)?!)
+        result = line.match(%r!factory\s*\(?\s*:(\w+).*\)?!) if result.nil? or result[1].nil?
         names << result[1] if result
       end
       return names
