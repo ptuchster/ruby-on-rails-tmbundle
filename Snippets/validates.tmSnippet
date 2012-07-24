@@ -8,7 +8,7 @@
                                 :exclusion =&gt; { :in =&gt; ${7:%w( ${8:mov avi} )} \}}${9:,
                                 :inclusion =&gt; { :in =&gt; ${10:%w( ${11:mov avi} )} \}}${12:,
                                 :format =&gt; { :with =&gt; /${13:^[${14:\w\d}]+\$}/ \}}${15:,
-                                :length =&gt; { :minimum =&gt; ${16:0}, :maximum =&gt; ${17:0}, }}${18:,
+                                :length =&gt; { :minimum =&gt; ${16:0}, :maximum =&gt; ${17:0} \}}${18:,
                                 :numericality =&gt; ${19:true}}${20:,
                                 :presence =&gt; ${21:true}}${22:,
                                 :uniqueness =&gt; ${23:true}}</string>
