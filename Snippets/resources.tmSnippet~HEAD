@@ -3,16 +3,16 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>setup do
-	$0
-end</string>
+	<string>resources :${1:posts}${2: do
+  $3
+end}</string>
 	<key>name</key>
-	<string>setup do..end</string>
+	<string>resources</string>
 	<key>scope</key>
-	<string>source.ruby.rails</string>
+	<string>meta.rails.routes</string>
 	<key>tabTrigger</key>
-	<string>setup</string>
+	<string>res</string>
 	<key>uuid</key>
-	<string>0A25B963-AF76-472D-BA68-07F88A64A10B</string>
+	<string>92E54811-6041-4BF8-B808-918B8C11F1D9</string>
 </dict>
 </plist>

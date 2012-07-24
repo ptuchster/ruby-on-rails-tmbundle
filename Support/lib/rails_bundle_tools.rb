@@ -12,12 +12,16 @@ require ENV['TM_SUPPORT_PATH'] + '/lib/exit_codes'
 require ENV['TM_SUPPORT_PATH'] + '/lib/textmate'
 require ENV['TM_SUPPORT_PATH'] + '/lib/ui'
 
-require 'rails/text_mate'
-require 'rails/rails_path'
-require 'rails/unobtrusive_logger'
-require 'rails/misc'
-require 'rails/inflector'
+require File.join(File.dirname(__FILE__), %w[rails text_mate])
+require File.join(File.dirname(__FILE__), %w[rails rails_path])
+require File.join(File.dirname(__FILE__), %w[rails unobtrusive_logger])
+require File.join(File.dirname(__FILE__), %w[rails misc])
+require File.join(File.dirname(__FILE__), %w[rails inflector])
 
 def ruby(command)
   `/usr/bin/env ruby #{command}`
+end
+
+def rails(command)
+  `rails #{command}`
 end

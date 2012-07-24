@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>Rails.logger.debug "${1:message}"</string>
+	<string>${1:singular}_path(${2:id}${3:, :format =&gt; ${4::xml}})$0</string>
 	<key>name</key>
-	<string>Rails.logger.debug</string>
+	<string>destroy - singular_path(id)  [DELETE]</string>
 	<key>scope</key>
-	<string>source.ruby.rails</string>
+	<string>source.ruby</string>
 	<key>tabTrigger</key>
-	<string>deb</string>
+	<string>restp</string>
 	<key>uuid</key>
-	<string>7B15B396-1F41-4529-9253-32761E94448C</string>
+	<string>08BD6F80-48C9-4CC6-85DE-4C7A0BDA59AA</string>
 </dict>
 </plist>

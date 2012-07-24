@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby
+
+require File.join(ENV['TM_BUNDLE_SUPPORT'], 'bin', 'migration_helpers.rb')
+print TextMate::MigrationHelpers.new.convert_move_column_after(STDIN.read)
+</string>
+	<key>input</key>
+	<string>document</string>
+	<key>name</key>
+	<string>Move column after (convert migration)</string>
+	<key>output</key>
+	<string>replaceDocument</string>
+	<key>scope</key>
+	<string>meta.rails.migration - meta.rails.migration.create_table - meta.rails.migration.change_table</string>
+	<key>uuid</key>
+	<string>32EE3016-21F9-4D56-AD96-737F44AD140D</string>
+</dict>
+</plist>

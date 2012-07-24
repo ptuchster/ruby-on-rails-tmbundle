@@ -55,10 +55,10 @@ if choice = TextMate.choose("Generate:", Generator.names, :title => "Rails Gener
 
     rails_root = RailsPath.new.rails_root
     FileUtils.cd rails_root
-    command = "script/generate #{Generator.generators[choice].name} #{arguments} #{options}"
+    command = "generate #{Generator.generators[choice].name} #{arguments} #{options}"
     $logger.debug "Command: #{command}"
 
-    output = ruby(command)
+    output = rails(command)
     $logger.debug "Output: #{output}"
     TextMate.rescan_project
     files = files_from_generator_output(output)

@@ -5,8 +5,8 @@
 # Description:
 #   Makes analyzing of a Rails path + filename easier.
 
-require 'rails/text_mate'
-require 'rails/misc'
+require File.join(File.dirname(__FILE__), %w[text_mate])
+require File.join(File.dirname(__FILE__), %w[misc])
 
 # Stores lines of text
 class Buffer

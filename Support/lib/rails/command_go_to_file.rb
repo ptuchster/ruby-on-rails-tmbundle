@@ -179,19 +179,16 @@ class CommandGoToFile
     when :helper
       ["module #{rails_path.controller_name.camelize}Helper\n\nend", 1, 0]
     when :unit_test
-      ["require File.dirname(__FILE__) + '/../test_helper'
+      ["require 'test_helper'
 
 class #{Inflector.singularize(rails_path.controller_name).camelize}Test < ActiveSupport::TestCase
- # Replace this with your real tests.
- def test_truth
-   assert true
- end
+  
 end", 3, 0]   
     when :functional_test
-      ["require File.dirname(__FILE__) + '/../test_helper'
+      ["require 'test_helper'
 
 class #{rails_path.controller_name.camelize}ControllerTest < ActionController::TestCase     
-
+  
 end", 3, 0]
     end
 

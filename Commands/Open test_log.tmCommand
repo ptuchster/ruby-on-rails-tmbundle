@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby
+
+path = "#{ENV['TM_PROJECT_DIRECTORY']}/log/test.log"
+if File.exists?(path)
+  `echo '' &gt; #{path}`
+  `/Applications/TextMate.app/Contents/Resources/mate #{path}`
+  exit
+else
+  dirs = Dir.getwd.split("/")
+  loop do
+    path = dirs.join("/") + "/log/test.log"
+    `echo '' &gt; #{path}`
+    if File.exists?(path)
+      `/Applications/TextMate.app/Contents/Resources/mate #{path}`
+      exit
+    end
+    dirs.pop
+    break if dirs.empty?
+  end
+end</string>
+	<key>input</key>
+	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>~L</string>
+	<key>name</key>
+	<string>Clear and open test.log</string>
+	<key>output</key>
+	<string>discard</string>
+	<key>uuid</key>
+	<string>6D5CF4D0-072E-478D-9A28-29AC3316967A</string>
+</dict>
+</plist>

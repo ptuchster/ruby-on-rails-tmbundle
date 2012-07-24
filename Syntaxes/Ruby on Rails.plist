@@ -7,7 +7,11 @@
 		<string>rb</string>
 		<string>rxml</string>
 		<string>builder</string>
+<<<<<<< HEAD
 		<string>Gemfile</string>
+=======
+                <string>Gemfile</string>
+>>>>>>> 22e2df2208f26ed7f6169691d8af400196078321
 	</array>
 	<key>foldingStartMarker</key>
 	<string>(?x)^
@@ -59,6 +63,10 @@
 			<string>meta.rails.functional_test</string>
 			<key>patterns</key>
 			<array>
+				<dict>
+					<key>include</key>
+					<string>#shoulda</string>
+				</dict>
 				<dict>
 					<key>include</key>
 					<string>source.ruby</string>
@@ -261,6 +269,10 @@
 			<array>
 				<dict>
 					<key>include</key>
+					<string>#shoulda</string>
+				</dict>
+				<dict>
+					<key>include</key>
 					<string>source.ruby</string>
 				</dict>
 				<dict>
@@ -310,15 +322,211 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b(alias_method_chain|alias_attribute|delegate|cattr_accessor|mattr_accessor|returning|memoize)\b</string>
+			<string>\b(alias_method_chain|alias_attribute|delegate|cattr_accessor|mattr_accessor|memoize)\b</string>
 			<key>name</key>
 			<string>support.function.activesupport.rails</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\b(returning)\b</string>
+			<key>name</key>
+			<string>keyword.function.activesupport.rails</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(Factory).define</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>support.class.ruby</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>\b(do)\b</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.start-block.ruby.shoulda</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>meta.rails.factory.header</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>source.ruby</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
 		</dict>
 		<dict>
 			<key>include</key>
 			<string>source.ruby</string>
 		</dict>
 	</array>
+	<key>repository</key>
+	<dict>
+		<key>shoulda</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>(^\s*)(context)\s+(("|')(.*)\4)\s+(do)\b</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.other.context.ruby.rails.shoulda</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>entity.name.function.ruby.rails.shoulda</string>
+						</dict>
+						<key>5</key>
+						<dict>
+							<key>name</key>
+							<string>meta.context.ruby.rails.shoulda</string>
+						</dict>
+						<key>6</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.start-block.ruby.shoulda</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>^\1(?=end)\b</string>
+					<key>name</key>
+					<string>source.ruby.rails.shoulda</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>match</key>
+							<string>\b(should_validate_presence_of|should_validate_uniqueness_of|should_not_allow_mass_assignment_of|should_not_allow_values_for|should_allow_values_for|should_ensure_length_in_range|should_ensure_length_at_least|should_ensure_value_in_range|should_validate_numericality_of|should_have_many|should_have_and_belong_to_many|should_have_one|should_belong_to|should_be_restful|should_set_the_flash_to|should_not_set_the_flash|should_assign_to|should_not_assign_to|should_respond_with|should_render_template|should_redirect_to|should_render_a_form|setup|teardown|fixtures|load_all_fixtures|should_have_db_column|should_have_db_columns|should_have_index|should_have_indices|should_validate_acceptance_of|shuold_set_the_flash_to|should_have_readonly_attributes|should_change|should_not_change|should_have_named_scope|should_ensure_length_is|should_filter_params|should_respond_with_content_type|should_route|should_return_from_session)\b</string>
+							<key>name</key>
+							<string>support.shoulda.macro</string>
+						</dict>
+						<dict>
+							<key>begin</key>
+							<string>^\s*(should|should_eventually)\b</string>
+							<key>comment</key>
+							<string>beginCaptures = { 1 = { name = 'support.function.should.ruby.rails.shoulda'; }; };</string>
+							<key>end</key>
+							<string>(\n)|\b(do)\b\s*</string>
+							<key>endCaptures</key>
+							<dict>
+								<key>1</key>
+								<dict>
+									<key>name</key>
+									<string>keyword.control.start-block.ruby.shoulda</string>
+								</dict>
+							</dict>
+							<key>name</key>
+							<string>meta.should.ruby.rails.shoulda</string>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>include</key>
+									<string>source.ruby</string>
+								</dict>
+							</array>
+						</dict>
+						<dict>
+							<key>begin</key>
+							<string>^\s*(use_(should|setup|context))\b</string>
+							<key>comment</key>
+							<string>beginCaptures = { 1 = { name = 'support.function.should.ruby.rails.shoulda.shared_should'; }; };</string>
+							<key>end</key>
+							<string>(\n)|\b(do)\b\s*</string>
+							<key>endCaptures</key>
+							<dict>
+								<key>2</key>
+								<dict>
+									<key>name</key>
+									<string>keyword.control.start-block.ruby.shoulda</string>
+								</dict>
+							</dict>
+							<key>name</key>
+							<string>meta.should.ruby.rails.shoulda.shared_should</string>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>include</key>
+									<string>source.ruby</string>
+								</dict>
+							</array>
+						</dict>
+						<dict>
+							<key>begin</key>
+							<string>^\s*(setup)\b</string>
+							<key>comment</key>
+							<string>beginCaptures = { 1 = { name = 'support.function.setup.ruby.rails.shoulda'; }; };</string>
+							<key>end</key>
+							<string>(\n)|\b(do)\b\s*</string>
+							<key>endCaptures</key>
+							<dict>
+								<key>1</key>
+								<dict>
+									<key>name</key>
+									<string>keyword.control.start-block.ruby.shoulda</string>
+								</dict>
+							</dict>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>include</key>
+									<string>source.ruby</string>
+								</dict>
+							</array>
+						</dict>
+						<dict>
+							<key>begin</key>
+							<string>^\s*(shared_should|shared_context_should|shared_should_be|shared_context_for|share_should|share_context|share_setup)\b</string>
+							<key>comment</key>
+							<string>beginCaptures = { 1 = { name = 'support.function.should.ruby.rails.shoulda'; }; };</string>
+							<key>end</key>
+							<string>(\n)|\b(do)\b\s*</string>
+							<key>endCaptures</key>
+							<dict>
+								<key>1</key>
+								<dict>
+									<key>name</key>
+									<string>keyword.control.start-block.ruby.shoulda</string>
+								</dict>
+							</dict>
+							<key>name</key>
+							<string>support.function.ruby.rails.shoulda</string>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>include</key>
+									<string>source.ruby</string>
+								</dict>
+							</array>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#shoulda</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>source.ruby</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+	</dict>
 	<key>scopeName</key>
 	<string>source.ruby.rails</string>
 	<key>uuid</key>

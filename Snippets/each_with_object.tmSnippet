@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>each_with_object(${1:{\}}) { |${2:value}, ${3:object}| $0 }</string>
+	<key>name</key>
+	<string>each_with_object</string>
+	<key>scope</key>
+	<string>source.ruby.rails</string>
+	<key>tabTrigger</key>
+	<string>eawo</string>
+	<key>uuid</key>
+	<string>88C909D0-2DB7-4618-AD57-56EDC324D19D</string>
+</dict>
+</plist>

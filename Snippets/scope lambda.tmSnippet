@@ -9,7 +9,7 @@
 	<key>scope</key>
 	<string>meta.rails.model</string>
 	<key>tabTrigger</key>
-	<string>scopel</string>
+	<string>scope</string>
 	<key>uuid</key>
 	<string>5D01527E-48FA-4A3D-A10B-A383C8AE3942</string>
 </dict>
